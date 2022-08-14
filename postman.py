@@ -13,15 +13,16 @@ class MonitorInfo:
     tests_failed: int
 
     def __str__(self):
-        return \
-            json.dumps(self, default=lambda o: o.__dict__,
-                       sort_keys=True,
-                       indent=4) \
-                .replace('{', '') \
-                .replace('{', '')
+        return f'''
+Монитор: {self.name}
+Статус: {self.status_of_last_run}
+Всего тестов: {self.tests_total}
+Не пройдено: {self.tests_failed}
+Всего запросов: {self.requests_total}
+        '''
 
 
-BASE_URL: str = 'https://api.getpostman.com/'
+BASE_URL: str = 'https://api.getpostman.com'
 
 
 def get_url(path: str) -> str:
@@ -34,16 +35,16 @@ class Postman:
 
     def get_monitor(self, guid: str) -> MonitorInfo:
         response = requests.get(get_url(f'monitors/{guid}'), headers=self.get_auth_header())
-        if response.status_code is not 200:
+        if response.status_code != 200:
             raise ValueError(response.__str__())
-        json = response.json()
+        monitor = response.json()['monitor']
         return MonitorInfo(
-            json['name'],
-            json['lastRun']['status'],
-            json['stats']['requests']['total'],
-            json['assertions']['total'],
-            json['assertions']['failed']
+            monitor['name'],
+            monitor['lastRun']['status'],
+            monitor['lastRun']['stats']['requests']['total'],
+            monitor['lastRun']['stats']['assertions']['total'],
+            monitor['lastRun']['stats']['assertions']['failed']
         )
 
     def get_auth_header(self) -> Dict[str, str]:
-        return {'Authorization': f'Bearer {self.api_key}'}
+        return {'X-API-Key': self.api_key}
