@@ -1,6 +1,7 @@
 import requests
-from typing import Dict, Any
+from typing import Dict
 from dataclasses import dataclass
+import json
 
 
 @dataclass()
@@ -10,6 +11,14 @@ class MonitorInfo:
     requests_total: int
     tests_total: int
     tests_failed: int
+
+    def __str__(self):
+        return \
+            json.dumps(self, default=lambda o: o.__dict__,
+                       sort_keys=True,
+                       indent=4) \
+                .replace('{', '') \
+                .replace('{', '')
 
 
 BASE_URL: str = 'https://api.getpostman.com/'
