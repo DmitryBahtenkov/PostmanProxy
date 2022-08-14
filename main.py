@@ -1,16 +1,17 @@
-# This is a sample Python script.
+from flask import Flask, Response, Request
+from postman import Postman, MonitorInfo
 
-# Press Shift+F10 to execute it or replace it with your code.
-# Press Double Shift to search everywhere for classes, files, tool windows, actions, and settings.
+app = Flask(__name__)
+postman = Postman
+
+@app.route('/')
+def index() -> Response:
+    return Response(status=200)
 
 
-def print_hi(name):
-    # Use a breakpoint in the code line below to debug your script.
-    print(f'Hi, {name}')  # Press Ctrl+F8 to toggle the breakpoint.
-
-
-# Press the green button in the gutter to run the script.
-if __name__ == '__main__':
-    print_hi('PyCharm')
-
-# See PyCharm help at https://www.jetbrains.com/help/pycharm/
+@app.route('data/<guid:str>', methods=['POST'])
+def data(guid: str) -> str:
+    try:
+        monitor: MonitorInfo = postman.get_monitor(guid=guid)
+    except ValueError as err:
+        return err.args[0]
