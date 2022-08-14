@@ -1,5 +1,6 @@
 {
   "postman_key": "",
   "telegram_key": "",
-  "telegram_chat": ""
+  "telegram_chat": "",
+  "secret_token": ""
 }
