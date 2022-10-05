@@ -3,7 +3,7 @@ from postman import Postman, MonitorInfo
 from config import Config
 from telegram import Telegram
 
-CFG_FILE = 'C:\\Users\\ДмитрийБахтенков\\PycharmProjects\\PostmanProxy\\cfg.json'
+CFG_FILE = 'cfg.json'
 CFG_TELEGRAM_KEY = 'telegram_key'
 CFG_TELEGRAM_CHAT = 'telegram_chat'
 REQUEST_POSTMAN_KEY = 'X-POSTMAN_KEY'
