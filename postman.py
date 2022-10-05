@@ -30,11 +30,8 @@ def get_url(path: str) -> str:
 
 
 class Postman:
-    def __init__(self, api_key: str):
-        self.api_key = api_key
-
-    def get_monitor(self, guid: str) -> MonitorInfo:
-        response = requests.get(get_url(f'monitors/{guid}'), headers=self.get_auth_header())
+    def get_monitor(self, guid: str, api_key: str) -> MonitorInfo:
+        response = requests.get(get_url(f'monitors/{guid}'), headers=self.get_auth_header(api_key=api_key))
         if response.status_code != 200:
             raise ValueError(response.__str__())
         monitor = response.json()['monitor']
@@ -46,5 +43,5 @@ class Postman:
             monitor['lastRun']['stats']['assertions']['failed']
         )
 
-    def get_auth_header(self) -> Dict[str, str]:
-        return {'X-API-Key': self.api_key}
+    def get_auth_header(self, api_key: str) -> Dict[str, str]:
+        return {'X-API-Key': api_key}
