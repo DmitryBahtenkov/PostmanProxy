@@ -3,6 +3,7 @@ from postman import Postman, MonitorInfo
 from config import Config
 from telegram import Telegram
 
+
 CFG_FILE = 'cfg.json'
 CFG_TELEGRAM_KEY = 'telegram_key'
 CFG_TELEGRAM_CHAT = 'telegram_chat'
