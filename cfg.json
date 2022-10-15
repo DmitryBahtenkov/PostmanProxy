@@ -2,5 +2,7 @@
   "postman_key": "",
   "telegram_key": "",
   "telegram_chat": "",
-  "secret_token": ""
+  "secret_token": "",
+  "tp_access_token": "",
+  "tp_url": ""
 }

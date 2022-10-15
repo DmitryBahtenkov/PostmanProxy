@@ -13,7 +13,14 @@ class MonitorInfo:
     tests_failed: int
 
     def __str__(self):
-        return f'''
+        emojies: str = ''
+
+        if self.status_of_last_run == 'success':
+            emojies += '✅✅✅'
+        else:
+            emojies += '❌❌❌'
+
+        return f'''{emojies}
 Монитор: {self.name}
 Статус: {self.status_of_last_run}
 Всего тестов: {self.tests_total}
