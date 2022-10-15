@@ -7,6 +7,10 @@ from typing import List, Optional
 class TpRelease:
     id: int
     name: str
+    url: str
+
+    def markdown(self):
+        return f'<a href="{self.url}">{self.name}</a>'
 
 
 class TargetProcess:
@@ -30,7 +34,7 @@ class TargetProcess:
 
         data = response.json()['Items'][0]
         if data['IsCurrent']:
-            return TpRelease(data['Id'], data['Name'])
+            return TpRelease(data['Id'], data['Name'], self.build_url(data['Id']))
         else:
             return None
 
