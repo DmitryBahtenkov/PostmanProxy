@@ -7,6 +7,9 @@ from telegram import Telegram
 CFG_FILE = 'cfg.json'
 CFG_TELEGRAM_KEY = 'telegram_key'
 CFG_TELEGRAM_CHAT = 'telegram_chat'
+CFG_TP_URL = 'tp_url'
+CFG_TP_TOKEN = 'tp_access_token'
+
 REQUEST_POSTMAN_KEY = 'X-POSTMAN_KEY'
 CFG_AUTH_KEY = 'secret_token'
 

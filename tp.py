@@ -1,6 +1,6 @@
 from dataclasses import dataclass
 import requests
-from typing import List
+from typing import List, Optional
 
 
 @dataclass
@@ -15,11 +15,11 @@ class TargetProcess:
         self._access_token_part = f'access_token={access_token}'
         self._access_token = access_token
 
-    def get_last_release(self, filter_field: str, filter_value: str) -> TpRelease:
+    def get_last_release(self, filter_field: str, filter_value: str) -> Optional[TpRelease]:
         parts: List[str] = [
             f'where={filter_field} contains \'{filter_value}\'',
             'orderByDesc=CreateDate',
-            'include=[Name]',
+            'include=[Name, IsCurrent]',
             'take=1',
             'format=json'
         ]
@@ -29,7 +29,10 @@ class TargetProcess:
             raise ValueError(str(response))
 
         data = response.json()['Items'][0]
-        return TpRelease(data['Id'], data['Name'])
+        if data['IsCurrent']:
+            return TpRelease(data['Id'], data['Name'])
+        else:
+            return None
 
     def build_url(self, entity_id: int):
         return f'{self._url}/entity/{entity_id}'
