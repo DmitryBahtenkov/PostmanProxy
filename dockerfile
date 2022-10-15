@@ -5,7 +5,7 @@ RUN adduser -D postman
 WORKDIR /home/pp
 
 COPY requirements.txt requirements.txt
-COPY main.py config.py telegram.py postman.py cfg.json ./
+COPY main.py config.py telegram.py postman.py tp.py utils.py cfg.json ./
 USER postman
 RUN pip3 install -r requirements.txt
 
